@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulateur de Marché</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Simulateur de Marché</h1>
+
+  <!-- Canvas pour le graphique -->
+  <canvas id="marketChart" width="800" height="400"></canvas>
+
+  <!-- Fenêtre Buy/Sell -->
+  <div id="tradeWindow">
+    <input type="number" id="volume" placeholder="Volume">
+    <button id="buyBtn">Buy</button>
+    <button id="sellBtn">Sell</button>
+  </div>
+
+  <!-- Historique des trades -->
+  <table id="tradeHistory">
+    <thead>
+      <tr><th>Time</th><th>Type</th><th>Volume</th><th>Price</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script type="module" src="src/main.ts"></script>
+</body>
+</html>
