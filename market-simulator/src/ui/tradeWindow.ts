@@ -1,21 +1,39 @@
 import { placeTrade } from "../core/trades.ts";
 
+// Créer une classe pour utiliser this et bind
+class TradeWindowManager {
+    private volumeInput: HTMLInputElement;
+    private tpInput: HTMLInputElement;
+    private slInput: HTMLInputElement;
+    private buyBtn: HTMLElement;
+    private sellBtn: HTMLElement;
+
+    constructor() {
+        this.volumeInput = document.getElementById("volumeInput") as HTMLInputElement;
+        this.tpInput = document.getElementById("tpInput") as HTMLInputElement;
+        this.slInput = document.getElementById("slInput") as HTMLInputElement;
+        this.buyBtn = document.getElementById("buyBtn")!;
+        this.sellBtn = document.getElementById("sellBtn")!;
+        
+        // Utiliser bind pour préserver le contexte de this
+        this.handleTrade = this.handleTrade.bind(this);
+        this.init();
+    }
+
+    private handleTrade(type: "buy" | "sell") {
+        const volume = parseFloat(this.volumeInput.value);
+        const tp = this.tpInput.value ? parseFloat(this.tpInput.value) : undefined;
+        const sl = this.slInput.value ? parseFloat(this.slInput.value) : undefined;
+
+        placeTrade(type, volume, tp, sl);
+    }
+
+    private init() {
+        this.buyBtn.addEventListener("click", () => this.handleTrade("buy"));
+        this.sellBtn.addEventListener("click", () => this.handleTrade("sell"));
+    }
+}
+
 export const initTradeWindow = () => {
-  const volumeInput = document.getElementById("volumeInput") as HTMLInputElement;
-  const tpInput = document.getElementById("tpInput") as HTMLInputElement;
-  const slInput = document.getElementById("slInput") as HTMLInputElement;
-
-  const buyBtn = document.getElementById("buyBtn")!;
-  const sellBtn = document.getElementById("sellBtn")!;
-
-  const handleTrade = (type: "buy" | "sell") => {
-    const volume = parseFloat(volumeInput.value);
-    const tp = tpInput.value ? parseFloat(tpInput.value) : undefined;
-    const sl = slInput.value ? parseFloat(slInput.value) : undefined;
-
-    placeTrade(type, volume, tp, sl);
-  };
-
-  buyBtn.addEventListener("click", () => handleTrade("buy"));
-  sellBtn.addEventListener("click", () => handleTrade("sell"));
+    new TradeWindowManager();
 };

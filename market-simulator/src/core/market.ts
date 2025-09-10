@@ -1,3 +1,4 @@
+import { updateTradeHistoryUI } from "../ui/history";
 import { trades, type Trade } from "./trades";
 
 export interface MarketState {
@@ -10,8 +11,8 @@ export interface MarketState {
 export let market: MarketState = {
     tradeHistory: [],
     priceHistory: [],
-    price: 10000,
-    balance: 1000,
+    price: 1000,
+    balance: 10000,
 }
 
 // ----- Définition des fonctions -----
