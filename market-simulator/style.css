@@ -1,0 +1,94 @@
+/* Layout principal */
+#app {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  /* gauche = 2/3, droite = 1/3 */
+  height: 100vh;
+  /* occupe toute la hauteur */
+}
+
+/* Partie graphique */
+#chart-container {
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#marketChart {
+  width: 75%;
+  height: auto;
+  position: absolute;
+  margin-left: 25%;
+  height: 68%;
+}
+
+/* Sidebar */
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #333;
+  background: #1a1a1a;
+  color: white;
+}
+
+/* Historique */
+#history {
+  background: #222;
+  border-top: 1px solid #444;
+  max-height: 200px;
+  transition: max-height 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+#history-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  cursor: pointer;
+  background: #333;
+}
+
+#history-content {
+  padding: 10px;
+  font-size: 14px;
+}
+
+#tradeWindow {
+  background: #1e1e1e;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  width: 20%;
+  font-size: 150%;
+}
+
+#tradeWindow label {
+  display: flex;
+  justify-content: space-between;
+}
+
+#tradeWindow input {
+  width: 30%;
+}
+
+#tradeWindow button {
+  width: 38%;
+  height: 30%;
+  margin-inline: 5%;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#buyBtn {
+  background: green;
+  color: white;
+}
+
+#sellBtn {
+  background: red;
+  color: white;
+}

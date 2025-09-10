@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <title>Simulateur de Marché</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <h1>Simulateur de Marché</h1>
 
@@ -13,7 +15,23 @@
 
   <!-- Fenêtre Buy/Sell -->
   <div id="tradeWindow">
-    <input type="number" id="volume" placeholder="Volume">
+    <h3>Trade Window</h3>
+    <br>
+    <label>
+      Volume:
+      <input class="numberInput" id="volumeInput" value="1" step="0.1" min="0.1">
+    </label>
+    <br>
+    <label>
+      Take Profit:
+      <input class="numberInput" type="number" id="tpInput" placeholder="ex: 120">
+    </label>
+    <br>
+    <label>
+      Stop Loss:
+      <input class="numberInput" type="number" id="slInput" placeholder="ex: 80">
+    </label>
+    <br><br>
     <button id="buyBtn">Buy</button>
     <button id="sellBtn">Sell</button>
   </div>
@@ -21,11 +39,17 @@
   <!-- Historique des trades -->
   <table id="tradeHistory">
     <thead>
-      <tr><th>Time</th><th>Type</th><th>Volume</th><th>Price</th></tr>
+      <tr>
+        <th>Time</th>
+        <th>Type</th>
+        <th>Volume</th>
+        <th>Price</th>
+      </tr>
     </thead>
     <tbody></tbody>
   </table>
 
   <script type="module" src="src/main.ts"></script>
 </body>
+
 </html>
