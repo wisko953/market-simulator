@@ -1,6 +1,6 @@
-import { placeTrade } from "../core/market.js";
+import { placeTrade } from "../core/trades.ts";
 
-const initTradeWindow = () => {
+export const initTradeWindow = () => {
   const volumeInput = document.getElementById("volumeInput") as HTMLInputElement;
   const tpInput = document.getElementById("tpInput") as HTMLInputElement;
   const slInput = document.getElementById("slInput") as HTMLInputElement;
@@ -19,5 +19,3 @@ const initTradeWindow = () => {
   buyBtn.addEventListener("click", () => handleTrade("buy"));
   sellBtn.addEventListener("click", () => handleTrade("sell"));
 };
-
-export { initTradeWindow };

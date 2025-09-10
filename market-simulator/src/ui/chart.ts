@@ -9,7 +9,6 @@ const PADDING_LEFT = 60;
 
 const chartHeight = canvas.height - PADDING_TOP - PADDING_BOTTOM;
 
-// Définir la structure d'une bougie
 interface Candle {
   open: number;
   high: number;
@@ -20,32 +19,9 @@ interface Candle {
 
 let candles: Candle[] = [];
 const MAX_CANDLES = 60;   // nombre de bougies visibles
-const CANDLE_WIDTH = 10;  // largeur de chaque bougie en pixels
+const CANDLE_WIDTH = 10;  // largeur de chaque bougie 
 
-// Crée ou met à jour la bougie actuelle
-const updateCandle = () => {
-  const price = market.price;
-  const lastCandle = candles[candles.length - 1];
-
-  if (!lastCandle || lastCandle.openTime !== Math.floor(Date.now() / 1000)) {
-    // nouvelle bougie chaque seconde
-    candles.push({
-      open: price,
-      high: price,
-      low: price,
-      close: price,
-      openTime: Math.floor(Date.now() / 1000), // timestamp en secondes
-    });
-    if (candles.length > MAX_CANDLES) candles.shift();
-  } else {
-    // mettre à jour la bougie existante
-    lastCandle.high = Math.max(lastCandle.high, price);
-    lastCandle.low = Math.min(lastCandle.low, price);
-    lastCandle.close = price;
-  }
-};
-
-// Dessine la grille et la légende
+//  grille et la légende
 const drawGrid = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -63,7 +39,7 @@ const drawGrid = () => {
     ctx.lineTo(canvas.width, y);
     ctx.stroke();
 
-    // optionnel : afficher valeurs de prix
+    // afficher les valeurs des prix (pas obligé mais vsy)
     ctx.fillStyle = "black";
     ctx.font = "12px Arial";
     const maxPrice = Math.max(...candles.map(c => c.high), market.price);
@@ -73,6 +49,7 @@ const drawGrid = () => {
   }
 
   for (let i = 0; i <= 10; i++) {
+    // lignes veritcales
     const x = i * stepX;
     ctx.beginPath();
     ctx.moveTo(x, 0);
@@ -80,7 +57,7 @@ const drawGrid = () => {
     ctx.stroke();
   }
 
-  // Légende : prix courant
+  // Légende (moi)
   ctx.fillStyle = "black";
   ctx.font = "16px Arial";
   ctx.fillText(`Prix: ${market.price.toFixed(2)}€`, 10, 20);
@@ -100,13 +77,13 @@ const drawCandles = () => {
     const yHigh  = canvas.height - PADDING_BOTTOM - ((candle.high  - minPrice) / (maxPrice - minPrice)) * chartHeight;
     const yLow   = canvas.height - PADDING_BOTTOM - ((candle.low   - minPrice) / (maxPrice - minPrice)) * chartHeight;
     
-    // couleur de la bougie
+    // couleur (vert ou rouge en fonction de la perf)
     ctx.fillStyle = candle.close >= candle.open ? "green" : "red";
 
-    // corps
+    // dessine bougie via coordonnées x & y, largeur et hauteur
     ctx.fillRect(x, Math.min(yOpen, yClose), CANDLE_WIDTH, Math.abs(yClose - yOpen));
 
-    // ombre
+    // mèche de la bougie de la muerte
     ctx.beginPath();
     ctx.moveTo(x + CANDLE_WIDTH / 2, yHigh);
     ctx.lineTo(x + CANDLE_WIDTH / 2, yLow);
@@ -116,7 +93,28 @@ const drawCandles = () => {
   });
 };
 
-// Animation
+const updateCandle = () => {
+  const price = market.price;
+  const lastCandle = candles[candles.length - 1];
+
+  // Vérifie si on doit créer une nouvelle bougie ou mettre a jour la précédente
+  if (!lastCandle || lastCandle.openTime !== Math.floor(Date.now() / 1000)) {
+    candles.push({
+      open: price,
+      high: price,
+      low: price,
+      close: price,
+      openTime: Math.floor(Date.now() / 1000), 
+    });
+    if (candles.length > MAX_CANDLES) candles.shift();
+  } else {
+    lastCandle.high = Math.max(lastCandle.high, price);
+    lastCandle.low = Math.min(lastCandle.low, price);
+    lastCandle.close = price;
+  }
+};
+
+// Boucle récursive (jdeteste la recursivité)
 const animateChart = () => {
   updateCandle();
   drawGrid();
