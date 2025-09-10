@@ -10,7 +10,6 @@ const initTradeWindow = () => {
 
   const handleTrade = (type: "buy" | "sell") => {
     const volume = parseFloat(volumeInput.value);
-    console.log(tpInput)
     const tp = tpInput.value ? parseFloat(tpInput.value) : undefined;
     const sl = slInput.value ? parseFloat(slInput.value) : undefined;
 

@@ -31,8 +31,6 @@ export const placeTrade = (type: "buy" | "sell", volume: number, tp?: number, sl
 
     trades.push(trade);
     updateTradeHistoryUI(trade);
-    console.log("Trade placé :", trade);
-
 }
 
 export const closeTrade = (trade: Trade) => {
@@ -78,8 +76,6 @@ export const updateTrades = () => {
         } else {
             trade.PnL = (trade.price - currentPrice) * trade.volume;
         }
-
-        console.log(trade.PnL)
 
         // Vérification TP / SL
         if (trade.tp && trade.tp !== 0) {
@@ -193,6 +189,4 @@ const SimulateStep = () => {
 }
 
 setInterval(SimulateStep, 200)
-setInterval(() => {
-    console.log(`New price : ${market.price}`)
-}, 1000)
+setInterval(() => {}, 1000)
