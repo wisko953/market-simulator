@@ -8,8 +8,6 @@
 </head>
 
 <body>
-  <h1>Simulateur de Marché</h1>
-
   <!-- Canvas pour le graphique -->
   <canvas id="marketChart" width="800" height="400"></canvas>
 
@@ -36,18 +34,30 @@
     <button id="sellBtn">Sell</button>
   </div>
 
+  <div id="balanceWidget">
+    <h3>Crédit</h3>
+    <p id="balanceAmount">0</p>
+  </div>
+
   <!-- Historique des trades -->
-  <table id="tradeHistory">
-    <thead>
-      <tr>
-        <th>Time</th>
-        <th>Type</th>
-        <th>Volume</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <div id="tradeHistoryContainer">
+    <h3>Historique des trades</h3>
+    <table id="tradeHistory">
+      <thead>
+        <tr>
+          <th>Heure</th>
+          <th>Type</th>
+          <th>Volume</th>
+          <th>Prix</th>
+          <th>P&L</th>
+          <th>SL</th>
+          <th>TP</th>
+          <th>Cancel</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
   <script type="module" src="src/main.ts"></script>
 </body>

@@ -92,3 +92,103 @@
   background: red;
   color: white;
 }
+
+#tradeHistoryContainer {
+  margin-top:10px ;
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
+  color: white;
+  width: 100%;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+#tradeHistory {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#tradeHistory thead {
+  background: #2a2a2a;
+  position: sticky;
+  top: 0;
+}
+
+#tradeHistory th,
+#tradeHistory td {
+  padding: 8px 10px;
+  text-align: center;
+  border-bottom: 1px solid #333;
+}
+
+#tradeHistory tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+#tradeHistory th {
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #bbb;
+  font-size: 12px;
+}
+
+#tradeHistory td.buy {
+  color: #4caf50; /* vert */
+  font-weight: bold;
+}
+
+#tradeHistory td.sell {
+  color: #f44336; /* rouge */
+  font-weight: bold;
+}
+
+#tradeHistory td.profit {
+  color: #00e676;
+  font-weight: bold;
+}
+
+#tradeHistory td.loss {
+  color: #ff5252;
+  font-weight: bold;
+}
+
+#tradeHistory td.inactive {
+  color: #888;
+  opacity: 0.7;
+}
+
+#balanceWidget {
+  background: #1e1e1e;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-block: 10px;
+  width: 20%;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+#balanceWidget h3 {
+  margin-block: 5px;
+}
+
+#balanceAmount {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-block: 5px;
+}
+
+.cancelBtn {
+  background: #444;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancelBtn:hover {
+  background: #ff4444;
+}

@@ -5,7 +5,7 @@ const ctx = canvas.getContext("2d")!;
 
 const PADDING_TOP = 30;
 const PADDING_BOTTOM = 10;
-const PADDING_LEFT = 50;
+const PADDING_LEFT = 60;
 
 const chartHeight = canvas.height - PADDING_TOP - PADDING_BOTTOM;
 
