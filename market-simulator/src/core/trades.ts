@@ -83,9 +83,20 @@ const validateTradeParallel = async (volume: number, price: number): Promise<boo
 // Fonction qui utilise Promise.race pour obtenir la validation la plus rapide
 const getFastestValidation = async (volume: number, price: number): Promise<string> => {
     const promises = [
-        new Promise<string>((resolve) => setTimeout(() => resolve("Volume OK"), 30)),
-        new Promise<string>((resolve) => setTimeout(() => resolve("Prix OK"), 40)),
-        new Promise<string>((resolve) => setTimeout(() => resolve("Balance OK"), 60))
+        // Utilise validateVolume et retourne un message selon le résultat
+        validateVolume(volume).then(isValid => 
+            isValid ? "Volume OK" : "Volume INVALIDE"
+        ),
+        
+        // Utilise validatePrice et retourne un message selon le résultat
+        validatePrice(price).then(isValid => 
+            isValid ? "Prix OK" : "Prix INVALIDE"
+        ),
+        
+        // Utilise validateBalance et retourne un message selon le résultat
+        validateBalance(volume, price).then(isValid => 
+            isValid ? "Balance OK" : "Balance INSUFFISANTE"
+        )
     ];
     
     return Promise.race(promises);
