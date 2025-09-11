@@ -21,3 +21,7 @@ IF EXIST src_backup ren src_backup src
 
 echo ✅ Projet Vite initialisé avec votre code existant.
 pause
+
+cd market-simulator
+npm install
+npm run dev
