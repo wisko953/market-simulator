@@ -1,5 +1,6 @@
 import { renderTradeHistory, updateTradeHistoryUI } from "../ui/history";
 import { market, updateBalance } from "./market";
+import { showNotification } from "./utils";
 
 // ===================================================================================
 // ============================== DEFINITION DES TRADES ==============================
@@ -121,11 +122,11 @@ export const placeTrade = async (type: "buy" | "sell", volume: number, tp?: numb
 
             updateTradeHistoryUI(trade);
         } else {
-            alert("Trade invalide ! Vérifiez le volume, le prix et votre balance");
+            showNotification("❌ Trade invalide ! Vérifiez le volume, le prix et votre balance");
         }
     } catch (error) {
         console.error("Erreur lors de la validation du trade:", error);
-        alert("Erreur lors de la validation du trade");
+        showNotification("⚠️ Erreur lors de la validation du trade");
     }
 };
 
