@@ -1,10 +1,11 @@
 ---
-
 # Market Simulator
 
 Simulateur de marché interactif en JavaScript / TypeScript avec graphique en bougies.
 
 ---
+
+[lien du repo github](https://github.com/wisko953/market-simulator)
 
 ## 1. Prérequis
 
