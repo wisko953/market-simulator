@@ -18,20 +18,6 @@ export interface Trade {
 
 export let trades: Trade[] = [];
 
-// Ajouter une fonction asynchrone pour simuler une validation de trade
-const validateTrade = async (volume: number): Promise<boolean> => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (volume > 0 && volume <= 100) {
-                resolve(true);
-            } else {
-                reject(new Error("Volume invalide"));
-            }
-        }, 100);
-    });
-};
-
-// Ajouter cette fonction closure pour créer un compteur de trades
 export const createTradeCounter = () => {
     let count = 0;
     return () => {
@@ -44,26 +30,38 @@ export const createTradeCounter = () => {
 // Utiliser la closure
 const tradeCounter = createTradeCounter();
 
-// Ajouter des fonctions pour les opérations parallèles
+// Fonctions de validations
 const validateVolume = async (volume: number): Promise<boolean> => {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(volume > 0 && volume <= 100), 50);
+    return new Promise((resolve, reject) => {
+        if (volume > 0 && volume <= 100) {
+            resolve(true);
+        } else {
+            reject(false);
+        }
     });
 };
 
 const validatePrice = async (price: number): Promise<boolean> => {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(price > 0), 75);
+    return new Promise((resolve, reject) => {
+        if (price > 0) {
+            resolve(true);
+        } else {
+            reject(false);
+        }
     });
 };
 
 const validateBalance = async (volume: number, price: number): Promise<boolean> => {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(market.balance >= volume * price * 0.1), 100);
+    return new Promise((resolve, reject) => {
+        if (market.balance >= volume * price * 0.1) {
+            resolve(true);
+        } else {
+            reject(false);
+        }
     });
 };
 
-// Fonction qui utilise Promise.all pour valider en parallèle
+// Validation parallèle
 const validateTradeParallel = async (volume: number, price: number): Promise<boolean> => {
     try {
         // Exécution en parallèle de toutes les validations
@@ -80,20 +78,15 @@ const validateTradeParallel = async (volume: number, price: number): Promise<boo
     }
 };
 
-// Fonction qui utilise Promise.race pour obtenir la validation la plus rapide
+// Validaion singulière
 const getFastestValidation = async (volume: number, price: number): Promise<string> => {
     const promises = [
-        // Utilise validateVolume et retourne un message selon le résultat
         validateVolume(volume).then(isValid => 
             isValid ? "Volume OK" : "Volume INVALIDE"
         ),
-        
-        // Utilise validatePrice et retourne un message selon le résultat
         validatePrice(price).then(isValid => 
             isValid ? "Prix OK" : "Prix INVALIDE"
         ),
-        
-        // Utilise validateBalance et retourne un message selon le résultat
         validateBalance(volume, price).then(isValid => 
             isValid ? "Balance OK" : "Balance INSUFFISANTE"
         )
@@ -102,14 +95,13 @@ const getFastestValidation = async (volume: number, price: number): Promise<stri
     return Promise.race(promises);
 };
 
-// Modifier placeTrade pour utiliser les opérations parallèles
 export const placeTrade = async (type: "buy" | "sell", volume: number, tp?: number, sl?: number) => {
     try {
-        // Validation parallèle avec Promise.all
+
         const isValid = await validateTradeParallel(volume, market.price);
         
         if (isValid) {
-            // Obtenir la validation la plus rapide avec Promise.race
+
             const fastestCheck = await getFastestValidation(volume, market.price);
             console.log(`Validation rapide: ${fastestCheck}`);
             
@@ -126,7 +118,8 @@ export const placeTrade = async (type: "buy" | "sell", volume: number, tp?: numb
                 active: true
             };
 
-            trades.push(trade);
+            trades = [...trades, trade];
+
             updateTradeHistoryUI(trade);
         } else {
             alert("Trade invalide ! Vérifiez le volume, le prix et votre balance");
@@ -137,12 +130,11 @@ export const placeTrade = async (type: "buy" | "sell", volume: number, tp?: numb
     }
 };
 
-// Met à jour le PnL et ferme les trades si TP/SL atteint
 export const updateTrades = () => {
     const currentPrice = market.price;
 
     trades.forEach((trade) => {
-        if (!trade.active) return; // skip si déjà fermé
+        if (!trade.active) return; 
 
         // Calcul du PnL
         if (trade.type === "buy") {
@@ -158,7 +150,6 @@ export const updateTrades = () => {
 
             } else if (trade.type === "sell" && currentPrice <= trade.tp) {
                 closeTrade(trade);
-
             }
         }
 
@@ -173,12 +164,8 @@ export const updateTrades = () => {
 };
 
 export const closeTrade = (trade: Trade) => {
-    if (!trade.active) return; // évite de clôturer 2 fois
-
-    // Ajoute le PnL au solde
+    if (!trade.active) return;
     market.balance += trade.PnL ?? 0;
-
-    // Marque le trade comme inactif
     trade.active = false;
 };
 
@@ -191,10 +178,9 @@ export const closeTrade = (trade: Trade) => {
 const addCancelListeners = () => {
     document.querySelectorAll<HTMLButtonElement>(".cancelBtn").forEach(btn => {
         btn.addEventListener("click", () => {
-            console.log('yyyyyy')
             const i = parseInt(btn.dataset.index!);
             closeTrade(trades[i])
-            renderTradeHistory(); // rafraîchit le tableau
+            renderTradeHistory(); 
         });
     });
 };

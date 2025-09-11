@@ -1,4 +1,3 @@
-import { updateTradeHistoryUI } from "../ui/history";
 import { trades, type Trade } from "./trades";
 
 export interface MarketState {

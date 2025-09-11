@@ -1,6 +1,5 @@
 import { placeTrade } from "../core/trades.ts";
 
-// Créer une classe pour utiliser this et bind
 class TradeWindowManager {
     private volumeInput: HTMLInputElement;
     private tpInput: HTMLInputElement;
@@ -15,7 +14,6 @@ class TradeWindowManager {
         this.buyBtn = document.getElementById("buyBtn")!;
         this.sellBtn = document.getElementById("sellBtn")!;
         
-        // Utiliser bind pour préserver le contexte de this
         this.handleTrade = this.handleTrade.bind(this);
         this.init();
     }
