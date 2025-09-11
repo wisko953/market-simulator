@@ -15,7 +15,6 @@ export interface Trade {
     PnL?: number;
     active: boolean;
 }
-
 export let trades: Trade[] = [];
 
 export const createTradeCounter = () => {
