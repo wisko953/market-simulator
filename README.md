@@ -53,7 +53,7 @@ init_vite.bat
 
 4. Execute les commandes suivantes :
 ```bash
-cd market-simulator
+cd market-simulator // il y a 2 dossiers market-simulator (my bad), il faut ouvrir le dernier
 npm install
 npm run dev
 ```
