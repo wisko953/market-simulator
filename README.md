@@ -27,27 +27,7 @@ npm install
 
 ---
 
-## 3. Structure du projet
-
-```
-market-simulator/
-│
-├─ index.html
-├─ style.css
-├─ package.json
-├─ tsconfig.json
-└─ src/
-   ├─ main.ts          # point d'entrée
-   ├─ core/
-   │  └─ market.ts     # logique du marché
-   └─ ui/
-      ├─ chart.ts      # graphique avec bougies
-      └─ tradeWindow.ts # boutons Buy/Sell (à implémenter)
-```
-
----
-
-## 4. Lancer le serveur de développement
+## 3. Lancer le serveur de développement
 
 ```bash
 npm run dev
@@ -57,9 +37,3 @@ npm run dev
 * Le canvas affiche le graphique en temps réel (prix simulé).
 
 ---
-
-## 5. Étapes suivantes
-
-* Ajouter la logique Buy/Sell pour interagir avec le marché
-* Afficher l’historique des trades
-* Ajouter des fonctionnalités avancées (scoring, alertes, indicateurs)
